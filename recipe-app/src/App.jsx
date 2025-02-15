@@ -1,12 +1,14 @@
 import { useState } from 'react'
-import HomePage from './components/HomePage'
-import DashBoard from './components/DashBoard'
+import LinkRouter from './router/LinkRouter'
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
   
 
   return (
-    <DashBoard/>
+    <BrowserRouter>
+      <LinkRouter />
+    </BrowserRouter>
   )
 }
 

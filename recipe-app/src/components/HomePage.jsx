@@ -1,15 +1,17 @@
-import React from 'react'
-import '/home/ganthan/Documents/projects/RecipeApp/recipe-app/src/App.css'
+import React, { useState } from 'react'
+import 'E:/projects/recipe-app/recipe-app/src/App.css'
+import { Link } from 'react-router-dom'
+
 function HomePage() {
   return (
     <div className='recipe-home-page'>
         <nav>
-            <div className="logo">
+            <div className="recipe-logo">
                 <h1>Recipe Master</h1>
             </div>
             <div>
-                <button className='recipe-sign-up'>Sign Up</button>
-                <button className='recipe-login-btn'>Login</button>
+                <button className='recipe-sign-up'><Link to='/signup'>Sign Up</Link></button>
+                <button className='recipe-login-btn'><Link to='/login'>Login</Link></button>
             </div>
         </nav>
         <div className='recipe-home-content'>

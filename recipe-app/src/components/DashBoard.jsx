@@ -1,71 +1,90 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import '/home/ganthan/Documents/projects/RecipeApp/recipe-app/src/App.css'
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import 'E:/projects/recipe-app/recipe-app/src/App.css';
 
 function DashBoard() {
-  let [recipeData,setRecipeData]=useState([]);
-
-  useEffect(()=>{
-    fetchData()    
-  },[])
-  async function fetchData() {
-      try{
-        const url='http://localhost:8080/recipe';
-
-        const response=await fetch(url,{
-          method:"GET",
-          header:{
-            'Content-Type':'application/json'
-          }
-        })
-        const data=await response.json();
-        setRecipeData(data);
-      }catch(error){
-        console.log(error);
-        
-      }
-  }
-  console.log(recipeData);
   
   return (
-
-      <div className='recipe-dashboard'>
-          <nav>
-              <div>
-                  <h1>Recipe App</h1>
-              </div>
-              <div className='recipe-navigators'>
-                <p>DASHBOARD</p>
-                <p>MY FAVOURITES</p>
-                <p>ADD RECIPE</p>
-              </div>
-          </nav>
-          <div className="recipe-container">
-            <div className="recipe-banner">
-            
-            </div>
-            <div className="recipe">
-              {
-                recipeData.map((element)=>{
-                  return(
-                    <div key={element.id}>
-                      <img 
-                        src={element.image.startsWith('http') ? element.image : `http://localhost:8080${element.image}`} 
-                        width="200px" 
-                        height="200px"
-                        alt={element.recipe_name} 
-                        onError={(e) => e.target.src = 'https://via.placeholder.com/200'} 
-                      />
-                      <h3>{element.recipe_name}</h3>
-                      <h4>{element.cuisine }</h4>
-                    </div>
-                  )
-                })
-              }
-            </div>
+    <div className='recipe-dashboard'>
+      <nav>
+        <h1>Recipe App</h1>
+        <p>DASHBOARD</p>
+        <p>MY FAVOURITES</p>
+        <p>ADD RECIPE</p>
+      </nav>
+      <div className="recipe-container">
+        <div className="recipe-topbar">
+          <h1>Recipe Master</h1>
+          <div className="recipe-search">
+            <input type="text" placeholder='Search recipe'/>
+            <button>
+              <FontAwesomeIcon icon={faMagnifyingGlass}/>
+            </button>
+          </div>
+          <div className='recipe-user'></div>
         </div>
+        <div className="recipe-about">
+          <div>
+            <h2>Make your dish</h2>
+            <h2>in your way</h2>
+          </div>
+        </div>
+        <h1>Cuisines</h1>
+        <div className="recipe-cuisines">
+          <div>
+            <img 
+              src="https://www.tastingtable.com/img/gallery/20-delicious-indian-dishes-you-have-to-try-at-least-once/l-intro-1733153567.jpg" 
+              width="350px"
+              height="250px"
+             />
+             <h3>Indian cuisine</h3>
+          </div>
+          <div>
+            <img 
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2LINArfis4cqDnYhYurrGuw6nNCRPO1VXlQ&s" 
+            width="350px"
+            height="250px"
+            />
+            <h3>French cuisine</h3>
+          </div>
+          <div>
+            <img 
+            src="https://images-cdn.welcomesoftware.com/Zz0zMDM2ZWM5NmQ5YjAxMWViODcwYmI5NWUzYmNlYzM0NA==/Zz01NTg2OGYyMmQ4MmYxMWViOGM4NjRkNDA4MzFmNzQ4OA%3D%3D.jpg?width=1366" 
+            width="350px"
+            height="250px"
+            />
+            <h3>Chinese cuisine</h3>
+          </div>
+          <div>
+            <img 
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqYruj-zEr-MkMMpcfA6AnY6m_Qg-PJCTgXg&s" 
+            width="350px"
+            height="250px"
+            />
+            <h3>Italian cuisine</h3>
+          </div>
+          <div>
+            <img 
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrPuPo2fLeCNgegg8nWihEOI8BEAXRoWeYA&s" 
+            width="350px"
+            height="250px"
+            />
+            <h3>Japanese Cuisine</h3>
+          </div>
+          <div>
+            <img 
+            src="https://ik.imagekit.io/shortpedia/Voices/wp-content/uploads/2021/10/american-cuisine-1200x900@1000worldrecipes.jpg" 
+            width="350px"
+            height="250px"
+            />
+            <h3>American Cuisine</h3>
+          </div>
+        </div>
+
       </div>
-  )
+    </div>
+  );
 }
 
-export default DashBoard
+export default DashBoard;
