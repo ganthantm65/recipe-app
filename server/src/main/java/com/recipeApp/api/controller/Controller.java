@@ -42,4 +42,14 @@ public class Controller {
     public void addUser(@RequestBody UsersModel usersModel){
          service.createUser(usersModel);
     }
+
+    @GetMapping("/search/{recipeDetails}")
+    public List<Model> searchRecipe(@PathVariable String recipeDetails){
+        return service.searchRecipe(recipeDetails);
+    }
+
+    @PutMapping("/favourites/{id}")
+    public void updateFavourites(@PathVariable int id,@RequestBody List<Model> models){
+        service.updateFavourites(id,models);
+    }
 }

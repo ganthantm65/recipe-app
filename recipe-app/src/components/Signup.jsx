@@ -3,6 +3,11 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser,faLock } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { Position, Toaster } from '@blueprintjs/core';
+
+const toaster=Toaster.create({
+  position:Position.TOP
+})
 
 function Signup() {
     let [userName,setUserName]=useState('');
@@ -15,7 +20,35 @@ function Signup() {
         setPassWord(event.target.value)
     }
     const updateFormData=()=>{
-        console.log(userName,passWord);        
+      const userData={user_name:userName,password:passWord}  
+      console.log(userData);
+      fetchData(userData);
+    }
+    const fetchData=async(userData)=>{
+      let url=`http://localhost:8080/recipe/signup`
+      let option={
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(userData)
+      }
+      try {
+        let response=await fetch(url,option)
+        if (!response.ok()) {
+            toaster.show({
+              message:"Error in server",
+              intent:"danger"
+            })
+        }else{
+          toaster({
+            message:"Account is created",
+            intent:"success"
+          })
+        }   
+      } catch (error) {
+        
+      }
     }
   return (
     <div className='recipe-signup'>
@@ -23,13 +56,13 @@ function Signup() {
         <h2>Sign-up</h2>
         <div>
             <FontAwesomeIcon icon={faUser}/>
-            <input type="text" placeholder='Enter your username' onClick={(event)=>updateUser(event)}/>
+            <input type="text" placeholder='Enter your username' onChange={(event)=>updateUser(event)}/>
         </div>
         <div>
             <FontAwesomeIcon icon={faLock}/>
-            <input type="password"  placeholder='Set password' onClick={(event)=>updatePassWord(event)}/>
+            <input type="password"  placeholder='Set password' onChange={(event)=>updatePassWord(event)}/>
         </div>
-        <button>Sign up</button>
+        <button onClick={updateFormData}>Sign up</button>
         <hr />
         <p>Already have an account <Link to="/login">login</Link></p>
       </div>

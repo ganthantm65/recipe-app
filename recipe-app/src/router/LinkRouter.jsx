@@ -1,9 +1,12 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import HomePage from '../components/HomePage.jsx'
 import DashBoard from '../components/DashBoard.jsx'
 import Login from '../components/Login.jsx'
 import Signup from '../components/Signup.jsx'
+import SearchResult from '../components/SearchResult.jsx'
+import Favourites from '../components/Favourites.jsx'
+import YourRecipe from '../components/YourRecipe.jsx'
 
 function LinkRouter() {
   return (
@@ -12,6 +15,9 @@ function LinkRouter() {
             <Route path='/dashboard' element={<DashBoard/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Signup/>}></Route>
+            <Route path='/search' element={<SearchResult/>}/>
+            <Route path='/favourites' element={<Favourites/>}></Route>
+            <Route path='/yourrecipe' element={<YourRecipe/>}></Route>
     </Routes>
   )
 }

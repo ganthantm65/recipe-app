@@ -17,14 +17,15 @@ public class ApiService {
 
     public List<Model> getAllData(){
         List<Model> data = apiRepository.findAll();
-        System.out.println("Database records: " + data.toString());
         return data;
     }
 
-
     public void addData(Model data) {
         apiRepository.save(data);
+    }
 
+    public List<Model> searchRecipe(String recipeDetails){
+        return apiRepository.getRecipe(recipeDetails);
     }
 
     public List<Model> getCuisine(String cuisine){
@@ -37,5 +38,9 @@ public class ApiService {
 
     public void createUser(UsersModel userDetails){
         userRepository.save(userDetails);
+    }
+
+    public void updateFavourites(int id,List<Model> favs){
+        userRepository.updateFavourites(id,favs);
     }
 }

@@ -45,7 +45,7 @@ function Login() {
     
             let data = await response.json();
             
-            sessionStorage.setItem("user_data",{...data,password:""})
+            sessionStorage.setItem("user_data",JSON.stringify({...data,password:""}))
 
             navigate('/dashboard')
             
