@@ -1,5 +1,6 @@
 package com.recipeApp.api.controller;
 
+import com.recipeApp.api.datamodel.Review;
 import com.recipeApp.api.datamodel.UsersModel;
 import com.recipeApp.api.service.ApiService;
 import com.recipeApp.api.datamodel.Model;
@@ -16,19 +17,12 @@ public class Controller {
     @Autowired
     ApiService service;
 
-    @GetMapping("/")
-    public List<Model> getRequest(){
+    @GetMapping
+    public List<Model> getRequest() {
         return service.getAllData();
     }
-    @GetMapping("/{cuisine}")
-    public List<Model> getCuisineRequest(@PathVariable String cuisine) {
-        if (cuisine == null || cuisine.isEmpty()) {
-            return service.getAllData();
-        }
-        return service.getCuisine(cuisine);
-    }
 
-    @PostMapping("/")
+    @PostMapping
     public void addRequest(@RequestBody Model model){
         service.addData(model);
     }
@@ -51,5 +45,10 @@ public class Controller {
     @PutMapping("/favourites/{id}")
     public void updateFavourites(@PathVariable int id,@RequestBody List<Model> models){
         service.updateFavourites(id,models);
+    }
+
+    @PostMapping("/review/{id}")
+    public void addReview(@PathVariable int id, @RequestBody Review review){
+        service.addReview(id, review);
     }
 }

@@ -1,5 +1,6 @@
 package com.recipeApp.api.service;
 
+import com.recipeApp.api.datamodel.Review;
 import com.recipeApp.api.datamodel.UsersModel;
 import com.recipeApp.api.repository.ApiRepository;
 import com.recipeApp.api.datamodel.Model;
@@ -42,5 +43,9 @@ public class ApiService {
 
     public void updateFavourites(int id,List<Model> favs){
         userRepository.updateFavourites(id,favs);
+    }
+
+    public void addReview(int id, Review review){
+        apiRepository.addReview(review.toString(),id);
     }
 }

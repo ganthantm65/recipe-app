@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 function DashBoard() {
   let userData=JSON.parse(sessionStorage.getItem("user_data"))
-  console.log(userData);
   
   let navigate=useNavigate();
 
@@ -18,6 +17,11 @@ function DashBoard() {
   const updateSeachValue=(event)=>{
     setSearchValue(event.target.value)
   }
+
+  const logout = () => {
+    sessionStorage.removeItem("user_data");
+    navigate("/login");
+  };  
 
   const navigateToSearch=()=>{
     navigate('/search',{state:{searchValue:searchValue}})
@@ -45,8 +49,8 @@ function DashBoard() {
             {
               isClicked && (
                 <div className='user-dropdown'>
-                  <p>{userData.user_name || "Guest"}</p>
-                  <button>Logout</button>
+                  <p>{userData.user_name}</p>
+                  <button onClick={logout}>Logout</button>
                 </div>
               )
             }

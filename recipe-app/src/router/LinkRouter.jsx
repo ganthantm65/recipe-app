@@ -7,6 +7,7 @@ import Signup from '../components/Signup.jsx'
 import SearchResult from '../components/SearchResult.jsx'
 import Favourites from '../components/Favourites.jsx'
 import YourRecipe from '../components/YourRecipe.jsx'
+import Recipe from '../components/Recipe.jsx'
 
 function LinkRouter() {
   return (
@@ -18,6 +19,7 @@ function LinkRouter() {
             <Route path='/search' element={<SearchResult/>}/>
             <Route path='/favourites' element={<Favourites/>}></Route>
             <Route path='/yourrecipe' element={<YourRecipe/>}></Route>
+            <Route path='/recipe' element={<Recipe/>}></Route>
     </Routes>
   )
 }

@@ -4,6 +4,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { Position, Toaster } from '@blueprintjs/core';
 
 function Favourites() {
     const [userData, setUserData] = useState({});
@@ -43,12 +44,64 @@ function Favourites() {
         setSearchValue(event.target.value);
     }
 
+    const logout = () => {
+        sessionStorage.removeItem("user_data");
+        navigate("/login");
+      };      
+
     const navigateToSearch = () => {
         navigate('/search', { state: { searchValue: searchValue } });
     }
 
     const updateClicked = () => {
         setIsClicked(!isClicked);
+    }
+
+    const deleteData = (favourite) => {
+        const updatedFavourites = favourites.filter((element) => element.id !== favourite.id);
+    
+        setFavourites(updatedFavourites);  
+        sessionStorage.setItem("user_data", JSON.stringify({ ...userData, favs: updatedFavourites })); 
+
+        fetchData(updatedFavourites)
+        console.log(favourites);
+        
+    };
+    
+    const fetchData=async(updatedData)=>{
+        let url=`http://localhost:8080/recipe/favourites/${userData.user_id}`
+        let options={
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(updatedData)
+        }
+
+        try {
+            let response=await fetch(url,options);
+
+            if (response.ok) {
+                const toaster=Toaster.create({
+                    position:Position.TOP
+                })
+                toaster.show({
+                    message:"Deleted successfully",
+                    intent:"success"
+                })
+            }else{
+                console.log(response.statusText);
+                
+            }
+        } catch (error) {
+            const toaster=Toaster.create({
+                position:Position.TOP
+            })
+            toaster.show({
+                message:"Error in server",
+                intent:"danger"
+            })
+        }        
     }
 
     return (
@@ -70,7 +123,7 @@ function Favourites() {
                         isClicked && (
                             <div className='user-dropdown'>
                                 <p>{userData?.user_name || "Guest"}</p>
-                                <button>Logout</button>
+                                <button onClick={logout}>Logout</button>
                             </div>
                         )
                     }
@@ -95,7 +148,7 @@ function Favourites() {
                             </ul>
                           )
                         })}
-                        <button>Delete</button>
+                        <button onClick={()=>deleteData(element)}>Delete</button>
                       </div>
                     </div>
                   )

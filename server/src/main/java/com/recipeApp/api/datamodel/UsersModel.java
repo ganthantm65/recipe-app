@@ -27,10 +27,6 @@ public class UsersModel {
     @JdbcTypeCode(SqlTypes.JSON)
     private List<Model> favs;
 
-    @Column(name = "your_recipe")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private List<Model> your_recipe;
-
     public int getUser_id() {
         return user_id;
     }
@@ -63,14 +59,6 @@ public class UsersModel {
         this.favs = favs;
     }
 
-    public List<Model> getYour_recipe() {
-        return your_recipe;
-    }
-
-    public void setYour_recipe(List<Model> your_recipe) {
-        this.your_recipe = your_recipe;
-    }
-
     @Override
     public String toString() {
         return "UsersModel{" +
@@ -78,7 +66,6 @@ public class UsersModel {
                 ", user_name='" + user_name + '\'' +
                 ", password='" + password + '\'' +
                 ", favs='" + favs + '\'' +
-                ", your_recipe='" + your_recipe + '\'' +
                 '}';
     }
 }

@@ -21,6 +21,11 @@ function SearchResult() {
   let [searchValue, setSearchValue] = useState(value);
   let [isClicked, setIsClicked] = useState(false);
 
+  const logout = () => {
+    sessionStorage.removeItem("user_data");
+    navigate("/login");
+  };  
+
   const updateSearchValue = (event) => {
     setSearchValue(event.target.value);
   };
@@ -108,7 +113,7 @@ function SearchResult() {
         <h1>Recipe Master</h1>
         <p onClick={navigateToDashBoard}>DASHBOARD</p>
         <p onClick={()=>{navigate('/favourites')}}>MY FAVOURITES</p>
-        <p>ADD RECIPE</p>
+        <p onClick={()=>{navigate('/yourrecipe')}}>ADD RECIPE</p>
         <div className='recipe-search'>
           <input type='text' placeholder='Search recipe' onChange={updateSearchValue} />
           <button onClick={navigateToSearch}>
@@ -120,7 +125,7 @@ function SearchResult() {
           {isClicked && (
             <div className='user-dropdown'>
               <p>{userData?.user_name || 'Guest'}</p>
-              <button>Logout</button>
+              <button onClick={logout}>Logout</button>
             </div>
           )}
         </div>
@@ -129,13 +134,17 @@ function SearchResult() {
         <div className='recipes'>
           {searchResults.map((element) => {
             return (
-              <div key={element.id} className='recipe'>
+              <div key={element.id} className='recipe' onClick={()=>{navigate('/recipe',{state:{recipe:element}})}}>
                 <img src={element.image} width='180px' height='180px' />
                 <div className='content'>
                   <h2>{element.recipe_name}</h2>
                   <h5>{element.chef_name}</h5>
                   <p>{element.description}</p>
-                  <button onClick={() => addToFavourites(userData, element)}>Add to Favourites</button>
+                  <button onClick={(event) => {
+                    event.stopPropagation();
+                    addToFavourites(userData, element)}}>
+                      Add to Favourites
+                  </button>
                 </div>
               </div>
             );
