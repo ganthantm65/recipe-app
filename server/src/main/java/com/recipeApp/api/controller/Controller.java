@@ -46,9 +46,4 @@ public class Controller {
     public void updateFavourites(@PathVariable int id,@RequestBody List<Model> models){
         service.updateFavourites(id,models);
     }
-
-    @PostMapping("/review/{id}")
-    public void addReview(@PathVariable int id, @RequestBody Review review){
-        service.addReview(id, review);
-    }
 }

@@ -24,32 +24,40 @@ function Signup() {
       console.log(userData);
       fetchData(userData);
     }
-    const fetchData=async(userData)=>{
-      let url=`http://localhost:8080/recipe/signup`
-      let option={
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
+    const fetchData = async (userData) => {
+      let url = `http://localhost:8080/recipe/signup`;
+      let option = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify(userData)
-      }
+        body: JSON.stringify(userData),
+      };
+    
       try {
-        let response=await fetch(url,option)
-        if (!response.ok()) {
-            toaster.show({
-              message:"Error in server",
-              intent:"danger"
-            })
-        }else{
-          toaster({
-            message:"Account is created",
-            intent:"success"
-          })
-        }   
+        let response = await fetch(url, option);
+    
+        if (response.ok) {
+          toaster.show({
+            message: "Account is created",
+            intent: "success",
+            icon: "tick-circle",
+          });
+        } else {
+          toaster.show({
+            message: "Invalid username or password",
+            intent: "danger",
+            icon: "error",
+          });
+        }
       } catch (error) {
-        
+        toaster.show({
+          message: "Network error. Please try again.",
+          intent: "danger",
+          icon: "warning-sign",
+        });
       }
-    }
+    };    
   return (
     <div className='recipe-signup'>
       <div className="recipe-signup-form">

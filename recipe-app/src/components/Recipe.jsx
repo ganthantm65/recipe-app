@@ -43,35 +43,6 @@ function Recipe() {
     navigate("/login");
   };
   console.log(recipeData);
-  
-  const addReview=async(review,element)=>{
-    let url=`http://localhost:8080/recipe/review/${element.id}`
-    let options={
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        userName:userData.user_name,
-        review:review
-      })
-    }
-    try {
-      let response=await fetch(url,options)
-
-      if (response.ok) {
-        toaster.show({
-          message:"Review added",
-          intent:"success"
-        })
-      }
-    } catch (error) {
-      toaster.show({
-        message:"Error in server",
-        intent:"danger"
-      })
-    }
-  }
 
   const addToFavourites = async (user, favs) => {
     const updatedFavourites = [...favourites, favs];
@@ -170,10 +141,6 @@ function Recipe() {
             </div>
             <div className="recipe-review">
                     <h2>Reviews</h2>
-                    <div className='recipe-add-review'>
-                        <textarea placeholder='Give your review' id="" onChange={updateReview}></textarea>
-                        <button onClick={()=>addReview(review,recipeData)}>Add</button>
-                    </div>
                     {
                         recipeData.reviews.map((element)=>{
                             return(
